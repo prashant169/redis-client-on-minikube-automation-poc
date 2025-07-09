@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+
+echo "🧹 Uninstalling Minikube completely..."
+
+# Step 1: Stop and delete the cluster
+echo "🛑 Stopping and deleting Minikube cluster..."
+minikube stop || echo "⚠️ Minikube not running"
+minikube delete || echo "⚠️ No Minikube cluster to delete"
+
+# Step 2: Delete Minikube binary
+MINIKUBE_PATH="/c/Program Files/Minikube/minikube.exe"
+if [[ -f "$MINIKUBE_PATH" ]]; then
+  echo "🗑️ Deleting $MINIKUBE_PATH"
+  rm -f "$MINIKUBE_PATH"
+else
+  echo "✅ Minikube binary already deleted"
+fi
+
+# Step 3: Delete Minikube config and cache
+echo "🗑️ Removing ~/.minikube and ~/.kube"
+rm -rf ~/.minikube ~/.kube
+
+# Step 4: Remove Minikube from system PATH (via PowerShell)
+echo "🧼 Cleaning Minikube from system PATH..."
+powershell.exe -Command "
+\$oldPath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
+\$newPath = \$oldPath -replace ';C:\\\\Program Files\\\\Minikube', ''
+[Environment]::SetEnvironmentVariable('Path', \$newPath, 'Machine')
+" || echo "⚠️ Could not remove from PATH automatically"
+
+echo "✅ Minikube successfully uninstalled!"
+
