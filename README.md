@@ -25,19 +25,32 @@ A fully automated DevOps project to deploy a Redis instance and a custom Redis c
 | Git Bash    | Script execution on Windows  |
 | PowerShell  | Windows PATH configuration   |
 
+
+
 ---
 
 ## 📁 Project Structure
 
 ```
-redis-client-on-minikube/
-├── helm-chart-redis-client/         # Helm chart for redis-client pod
-├── scripts/                         # Shell scripts to automate each step
+ox-devops-assignment/
+│
 ├── run_all.sh                       # Installs Minikube, kubectl, and starts cluster
-├── execute_all.sh                   # Full Redis deployment and test flow
-├── unininstall_minikube.sh          # Uninstalls Minikube and removes PATH entries
+├── scripts/
+│   ├── 1_start_minikube.sh
+│   ├── 2_install_redis.sh
+│   ├── 3_deploy_redis-client.sh
+│   ├── 4_set_key.sh
+│   └── 5_get_key.sh
+│
+├── helm-chart-redis-client/
+│   ├── Chart.yaml
+│   ├── values.yaml
+│   └── templates/
+│       └── deployment.yaml
 ├── nots.txt                         # Notes (optional)
+├── unininstall_minikube.sh          # Uninstalls Minikube and removes PATH entries
 └── problem6 DevOps-Assignment.pdf   # Original problem statement
+└── README.md
 ```
 
 ---
