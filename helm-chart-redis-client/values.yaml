@@ -1,8 +1,0 @@
-image:
-  repository: redis
-  tag: latest
-  pullPolicy: IfNotPresent
-
-command: ["sleep"]
-args: ["infinity"]
-

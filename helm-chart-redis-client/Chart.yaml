@@ -1,5 +1,0 @@
-apiVersion: v2
-name: redis-client
-description: A simple pod to connect to Redis
-version: 0.1.0
-
