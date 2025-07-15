@@ -87,15 +87,6 @@ Deploy a Redis client pod
 Set and Get a Redis key
 
 ########
-
-#How to Uninstall Everything
-To clean up Docker Desktop and Minikube fully:
-
-cd scripts/
-chmod +x uninstall_minikube_and_docker.sh
-./uninstall_minikube_and_docker.sh
-
-
 This will:
 
 Stop and delete Minikube cluster
@@ -104,8 +95,13 @@ Remove binaries and configuration
 
 Uninstall Docker Desktop using PowerShell
 
-Clean up all related files
+########
+How to Uninstall Everything
+To clean up Docker Desktop and Minikube fully:
 
+cd scripts/
+chmod +x uninstall_minikube_and_docker.sh
+./uninstall_minikube_and_docker.sh
 ########
 
 
