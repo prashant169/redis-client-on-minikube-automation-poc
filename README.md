@@ -13,8 +13,8 @@ It includes:
 
 ## 🧰 Tech Stack
 
-| Tool        | Use                        |
-|-------------|-----------------------------|
+| Tool        | Use                          |
+|-------------|------------------------------|
 | Minikube    | Local Kubernetes cluster     |
 | kubectl     | Kubernetes CLI               |
 | Helm        | Kubernetes package manager   |
@@ -32,15 +32,15 @@ Redis-client-on-minikube/
 │ 
 ├── run_all.sh                       # Main script to execute everything in order Installs ,Docker-Desktop, Minikube, kubectl, and starts cluster
 ├── scripts/                         # Shell scripts to automate each step ,Full Redis deployment and test flow
-│	├── setup_docker.ps1			  # Installs Docker Desktop on Window
-│   ├── 1_start_minikube.sh	      # Starts Minikube cluster
-│   ├── 2_install_redis.sh	      # Installs Redis Helm chart
+│	  ├── setup_docker.ps1			       # Installs Docker Desktop on Window
+│   ├── 1_start_minikube.sh	         # Starts Minikube cluster
+│   ├── 2_install_redis.sh	         # Installs Redis Helm chart
 │   ├── 3_deploy_redis-client.sh     # Deploys Redis client Helm chart
-│   ├── 4_set_key.sh		      # Sets key OxKey with value OxValue
-│   └── 5_get_key.sh		      # Gets value for key OxKey
+│   ├── 4_set_key.sh		             # Sets key OxKey with value OxValue
+│   └── 5_get_key.sh		             # Gets value for key OxKey
 │
 ├── helm-chart-redis-client/        # Custom Helm chart for Redis client pod
-│   ├── Chart.yaml		     # Chart values (optional)
+│   ├── Chart.yaml		              # Chart values (optional)
 │   ├── values.yaml
 │   └── templates/
 │       └── deployment.yaml
