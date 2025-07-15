@@ -32,7 +32,7 @@ Redis-client-on-minikube/
 │ 
 ├── run_all.sh                       # Main script to execute everything in order Installs ,Docker-Desktop, Minikube, kubectl, and starts cluster
 ├── scripts/                         # Shell scripts to automate each step ,Full Redis deployment and test flow
-│	  ├── setup_docker.ps1			       # Installs Docker Desktop on Window
+│├── setup_docker.ps1			       # Installs Docker Desktop on Window
 │   ├── 1_start_minikube.sh	         # Starts Minikube cluster
 │   ├── 2_install_redis.sh	         # Installs Redis Helm chart
 │   ├── 3_deploy_redis-client.sh     # Deploys Redis client Helm chart
