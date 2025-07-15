@@ -36,7 +36,8 @@ else
   echo "Launching Docker Desktop..."
 
   # Launch Docker Desktop via PowerShell
-  powershell.exe -Command "Start-Process '$DOCKER_PATH'"
+  #powershell.exe -Command "Start-Process '$DOCKER_PATH'"
+  powershell.exe -Command "Start-Process 'C:\Program Files\Docker\Docker\Docker Desktop.exe'"
   sleep 10
 fi
 
