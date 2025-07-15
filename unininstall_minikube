@@ -1,33 +1,69 @@
 #!/bin/bash
 set -e
 
-echo "🧹 Uninstalling Minikube completely..."
+echo "Uninstalling Minikube and Docker Desktop completely..."
+
+### MINIKUBE UNINSTALLATION
 
 # Step 1: Stop and delete the cluster
-echo "🛑 Stopping and deleting Minikube cluster..."
-minikube stop || echo "⚠️ Minikube not running"
-minikube delete || echo "⚠️ No Minikube cluster to delete"
+echo "Stopping and deleting Minikube cluster..."
+minikube stop 2>/dev/null || echo "Minikube not running"
+minikube delete 2>/dev/null || echo "No Minikube cluster to delete"
 
 # Step 2: Delete Minikube binary
 MINIKUBE_PATH="/c/Program Files/Minikube/minikube.exe"
 if [[ -f "$MINIKUBE_PATH" ]]; then
-  echo "🗑️ Deleting $MINIKUBE_PATH"
+  echo "Deleting $MINIKUBE_PATH"
   rm -f "$MINIKUBE_PATH"
 else
-  echo "✅ Minikube binary already deleted"
+  echo "Minikube binary already deleted"
 fi
 
 # Step 3: Delete Minikube config and cache
-echo "🗑️ Removing ~/.minikube and ~/.kube"
+echo "Removing ~/.minikube and ~/.kube"
 rm -rf ~/.minikube ~/.kube
 
 # Step 4: Remove Minikube from system PATH (via PowerShell)
-echo "🧼 Cleaning Minikube from system PATH..."
+echo "Cleaning Minikube from system PATH..."
 powershell.exe -Command "
 \$oldPath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
 \$newPath = \$oldPath -replace ';C:\\\\Program Files\\\\Minikube', ''
 [Environment]::SetEnvironmentVariable('Path', \$newPath, 'Machine')
-" || echo "⚠️ Could not remove from PATH automatically"
+" || echo "Could not remove Minikube from PATH automatically"
 
-echo "✅ Minikube successfully uninstalled!"
+echo "Minikube successfully uninstalled!"
+
+
+### 🔻 DOCKER DESKTOP UNINSTALLATION
+
+echo "Uninstalling Docker Desktop..."
+
+# Step 1: Uninstall Docker Desktop via PowerShell
+powershell.exe -Command "
+\$docker = Get-WmiObject -Class Win32_Product | Where-Object { \$_.Name -like 'Docker*' }
+if (\$docker) {
+    Write-Host 'Uninstalling Docker...'
+    \$docker.Uninstall() | Out-Null
+} else {
+    Write-Host 'Docker Desktop not found or already uninstalled.'
+}
+"
+
+# Step 2: Kill Docker Desktop background processes (safe)
+echo "Killing Docker Desktop background processes (safe)..."
+powershell.exe -Command "
+\$procs = 'com.docker.backend','com.docker.service','Docker Desktop'
+foreach (\$p in \$procs) {
+    Get-Process -Name \$p -ErrorAction SilentlyContinue | Stop-Process -Force
+}
+"
+
+# Step 3: Remove config and data folders
+echo "Removing Docker config and data..."
+rm -rf "/c/ProgramData/Docker" "/c/ProgramData/DockerDesktop" \
+       "$LOCALAPPDATA/Docker" "$LOCALAPPDATA/Docker Desktop" \
+       "$APPDATA/Docker" "$HOME/.docker"
+
+echo "Docker Desktop successfully uninstalled!"
+
 
