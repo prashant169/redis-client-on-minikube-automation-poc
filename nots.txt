@@ -1,0 +1,109 @@
+ox-devops-assignment/
+│
+├── scripts/
+│   ├── 1_start_minikube.sh
+│   ├── 2_install_redis.sh
+│   ├── 3_deploy_redis-client.sh
+│   ├── 4_set_key.sh
+│   └── 5_get_key.sh
+│
+├── helm-chart-redis-client/
+│   ├── Chart.yaml
+│   ├── values.yaml
+│   └── templates/
+│       └── deployment.yaml
+│
+└── README.md
+
+
+#1. Start Minikube:
+./scripts/1_start_minikube.sh
+
+#2. Install Redis Helm chart:
+./scripts/2_install_redis.sh
+
+#3. Deploy redis-client using our custom Helm chart:
+./scripts/3_deploy_redis-client.sh
+
+#4. Set a key in Redis: 
+./scripts/4_set_key.sh
+
+#5. Get the key from Redis:
+./scripts/5_get_key.sh
+
+zip -r ox-devops-assignment.zip *
+
+
+
+
+# Optional Cleanup (run if you've tested before)
+helm uninstall redis
+helm uninstall redis-client
+minikube delete
+
+# Step 0: Make all scripts executable
+chmod +x scripts/*.sh
+
+# Step 1: Start Minikube
+./scripts/1_start_minikube.sh
+
+# Step 2: Install Redis via Helm
+./scripts/2_install_redis.sh
+
+# Step 3: Deploy redis-client Helm chart
+./scripts/3_deploy_redis-client.sh
+
+# Step 4: Wait for pods (optional but useful)
+kubectl wait --for=condition=Ready pod -l app=redis-client --timeout=60s
+kubectl wait --for=condition=Ready pod -l app.kubernetes.io/component=master --timeout=60s
+
+# Step 5: Set a Redis key
+./scripts/4_set_key.sh   # Should output: OK
+
+# Step 6: Get the Redis key
+./scripts/5_get_key.sh   # Should output: "OxValue"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+# Step 0: Make all scripts executable
+chmod +x scripts/*.sh
+
+# Step 1: Start Minikube
+./scripts/1_start_minikube.sh
+
+# Step 2: Install Redis via Helm
+./scripts/2_install_redis.sh
+
+# Step 3: Deploy redis-client Helm chart
+./scripts/3_deploy_redis-client.sh
+
+# Step 4: Wait for pods (optional but useful)
+kubectl wait --for=condition=Ready pod -l app=redis-client --timeout=60s
+kubectl wait --for=condition=Ready pod -l app.kubernetes.io/component=master --timeout=60s
+
+# Step 5: Set a Redis key
+./scripts/4_set_key.sh   # Should output: OK
+
+# Step 6: Get the Redis key
+./scripts/5_get_key.sh   # Should output: "OxValue"
+
+
